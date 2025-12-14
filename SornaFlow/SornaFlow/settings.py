@@ -73,7 +73,7 @@ TEMPLATES = [
 
 
 WSGI_APPLICATION = 'SornaFlow.wsgi.application'
-
+AUTH_USER_MODEL = 'accounts.EmployeeUser'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases

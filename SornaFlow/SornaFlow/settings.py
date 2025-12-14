@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_jalali",
     "apps.accounts.apps.AccountsConfig",
     "apps.companies.apps.CompaniesConfig",
     "apps.tasks_and_reports.apps.TasksAndReportsConfig",
@@ -77,6 +78,7 @@ AUTH_USER_MODEL = 'accounts.EmployeeUser'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 
 
 DATABASES = {

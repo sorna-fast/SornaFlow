@@ -1,0 +1,56 @@
+{% extends "main_template.html" %}
+
+{% block title %}پنل کارمند{% endblock title %}
+
+{% block content %}
+        <img src="{{media_url}}/images/logo_dark_backgroand.jpg" alt="لوگو شرکت">
+
+        <span>خوش آمدید، {{ request.user.name}} {{request.user.family}} عزیز</span>
+        <a href="{% url " accounts_app:logout" %}" >خروج از پنل کاربری</a>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            {{ message }}
+
+        {% endfor %}
+
+    {% endif %}
+
+
+        <h1>وظایف شما</h1>
+
+        {% if not tasks %}
+        هیچ وظیفه فعالی برای شما تعریف نشده است 
+        {% else %}
+        {% for task in tasks %}
+
+                {{ task.title }}
+
+                    <h4>ثبت گزارش جدید</h4>
+                    <p>{{ task.description }}</p>
+
+                        {% csrf_token %}
+
+                    {% for report in task.reports.all %}
+
+                            { report.created_at|date:"Y/m/d - H:i" }
+
+
+                            <p>{{ report.description }}</p>
+                            {% if report.file_upload_reports %}
+
+                            {% endif %}
+
+
+                    {% endfor %}
+
+
+        {% endfor %}
+
+    {% endif %}
+
+
+{% endblock content %}

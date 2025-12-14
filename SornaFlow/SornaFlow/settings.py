@@ -64,8 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "apps.main.views.media_admin",
-                'hollanding_paver.context_processors.vapid_key_context',
+                "apps.accounts.views.media_admin",
+
             ],
         },
     },
@@ -77,6 +77,7 @@ AUTH_USER_MODEL = 'accounts.EmployeeUser'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {

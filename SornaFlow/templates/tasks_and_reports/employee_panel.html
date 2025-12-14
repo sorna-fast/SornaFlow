@@ -3,54 +3,107 @@
 {% block title %}پنل کارمند{% endblock title %}
 
 {% block content %}
+<header class="main-header">
+    <div class="header-logo">
         <img src="{{media_url}}/images/logo_dark_backgroand.jpg" alt="لوگو شرکت">
 
+    </div>
+    <div class="header-user">
         <span>خوش آمدید، {{ request.user.name}} {{request.user.family}} عزیز</span>
-        <a href="{% url " accounts_app:logout" %}" >خروج از پنل کاربری</a>
+        <a href="{% url "accounts_app:logout" %}" class="btn-logout">خروج از پنل کاربری</a>
+    </div>
+</header>
 
-
+<main class="main-container">
     {% if messages %}
-
+    <div class="messages">
         {% for message in messages %}
-
+        <div
+            class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}">
             {{ message }}
-
+        </div>
         {% endfor %}
-
+    </div>
     {% endif %}
 
+    <div>
+        <h1 class="page-title">وظایف شما</h1>
+    </div>
 
-        <h1>وظایف شما</h1>
-
+    <div class="task-accordion">
         {% if not tasks %}
-        هیچ وظیفه فعالی برای شما تعریف نشده است 
+        <h2 class="no-tasks-message">هیچ وظیفه فعالی برای شما تعریف نشده است</h2>
         {% else %}
         {% for task in tasks %}
-
-                {{ task.title }}
-
+        <details class="task-card">
+            <summary class="task-card-summary">
+                <span class="summary-title">{{ task.title }}</span>
+                <div class="accordion-icon"></div>
+            </summary>
+            <div class="task-card-body">
+                <div class="new-report-section">
                     <h4>ثبت گزارش جدید</h4>
                     <p>{{ task.description }}</p>
-
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                        <input type="hidden" name="status" value="">
 
+                        <div class="form-group">
+                            <label for="file-{{ task.id }}">آپلود فایل</label>
+                            <input type="file" id="file-{{ task.id }}" name="file">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-{{ task.id }}">متن گزارش</label>
+                            <textarea id="report-{{ task.id }}" name="description" rows="4"
+                                placeholder="توضیحات خود را وارد کنید..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>تعیین وضعیت</label>
+                            <div class="status-buttons">
+                                <button type="button" data-status="درحال اجرا">درحال اجرا</button>
+                                <button type="button" data-status="موفق">موفق</button>
+                                <button type="button" data-status="ناموفق">ناموفق</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">ارسال</button>
+                    </form>
+                </div>
+
+                <div class="report-history">
+                    <h4 class="history-title">سوابق گزارش‌ها</h4>
                     {% for report in task.reports.all %}
-
-                            { report.created_at|date:"Y/m/d - H:i" }
-
-
+                    <div class="history-item">
+                        <div class="history-item-header">
+                            <span class="history-date">{{ report.created_at|date:"Y/m/d - H:i" }}</span>
+                            <span class="history-status 
+                                    {% if report.status == 'موفق' %}status-success
+                                    {% elif report.status == 'ناموفق' %}status-failed
+                                    {% elif report.status == 'درحال اجرا' %}status-inprogress
+                                    {% else %}status-danger{% endif %}">
+                                {{ report.status }}
+                            </span>
+                        </div>
+                        <div class="history-item-body">
                             <p>{{ report.description }}</p>
                             {% if report.file_upload_reports %}
-
+                            <a href="{{ report.file_upload_reports.url }}" class="history-file-link"
+                                target="_blank">فایل ضمیمه</a>
                             {% endif %}
-
+                        </div>
+                    </div>
 
                     {% endfor %}
+                </div>
 
+            </div>
+        </details>
 
         {% endfor %}
-
+    </div>
     {% endif %}
-
+</main>
 
 {% endblock content %}

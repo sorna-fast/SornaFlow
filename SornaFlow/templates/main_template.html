@@ -3,19 +3,34 @@
 <html lang="fa" dir="rtl">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HollandingPaver|{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<body >
 
     {% csrf_token %}
 
     {% block content %}
     {% endblock content %}
 
-
+    <script src="{% static 'js/myscript.js' %}"></script>
 
 </body>
-
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function (registration) {
+                    console.log('ServiceWorker registered with scope:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.error('ServiceWorker registration failed:', error);
+                });
+        });
+    }
+</script>
 
 </html>

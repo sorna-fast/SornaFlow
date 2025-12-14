@@ -3,38 +3,49 @@
 {% block title %}ورود کارمند{% endblock title %}
 {% block content %}
 
-
+<div class="login-container">
+    <div class="logo-area">
+        <img style="width: 70%;" src="{{media_url}}/images/logo.jpg" alt="">
+    </div>
+    <h2 class="form-title">صفحه ورود کارمند</h2>
 
     {% if messages %}
     {% for message in messages %}
-
+    <div class="alert alert-{{ message.tags }}">
         {{ message }}
-
+    </div>
     {% endfor %}
     {% endif %}
 
-
+    <form class="login-form" method="POST">
         {% csrf_token %}
-        {{ form.national_code.label }}
+
+        <div class="form-group">
+            <label for="{{ form.national_code.id_for_label }}">{{ form.national_code.label }}</label>
             {{ form.national_code }}
             {% if form.national_code.errors %}
-
+            <div class="text-danger">
                 {% for error in form.national_code.errors %}
                 {{ error }}
                 {% endfor %}
-            
+            </div>
             {% endif %}
+        </div>
 
-
-            {{ form.password.label }}
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
             {{ form.password }}
             {% if form.password.errors %}
-
+            <div class="text-danger">
                 {% for error in form.password.errors %}
                 {{ error }}
                 {% endfor %}
-
+            </div>
             {% endif %}
+        </div>
 
+        <button type="submit" class="btn-submit">ورود</button>
+    </form>
+</div>
 
 {% endblock content %}

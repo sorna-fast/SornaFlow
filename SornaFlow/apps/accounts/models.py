@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 from django_jalali.db import models as jmodels
-from utils import FileUpload
+from apps.core.utils import FileUpload
 #___________________________________________________________________________________
 
 class EmployeesUserManager(BaseUserManager):

@@ -2,7 +2,7 @@
 
 import django.db.models.deletion
 import django_jalali.db.models
-import utils
+import apps.core.utils as utils
 from django.db import migrations, models
 
 

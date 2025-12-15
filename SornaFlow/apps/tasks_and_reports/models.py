@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django_jalali.db import models as jmodels
-from utils import FileUpload
+from apps.core.utils import FileUpload
 # یک تابع برای مدیریت مسیر آپلود فایل‌ها
 
 

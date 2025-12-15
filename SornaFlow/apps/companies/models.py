@@ -1,5 +1,5 @@
 from django.db import models
-from utils import FileUpload
+from apps.core.utils import FileUpload
 # Create your models here.
 
 class Company(models.Model):

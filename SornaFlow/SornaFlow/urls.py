@@ -15,11 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("accounts/",include("apps.accounts.urls",namespace="accounts_app")),
-    path("",include("apps.tasks.urls",namespace="tasks_app")),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),  # Django admin panel
+    path("accounts/", include("apps.accounts.urls", namespace="accounts_app")),  # Accounts app routes
+    path("", include("apps.tasks.urls", namespace="tasks_app")),  # Default route → tasks app
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Serve media files in development

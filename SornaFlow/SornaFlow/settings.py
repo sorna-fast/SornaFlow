@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     "django_jalali",
     "apps.accounts.apps.AccountsConfig",
     "apps.companies.apps.CompaniesConfig",
-    "apps.tasks_and_reports.apps.TasksAndReportsConfig",
+    "apps.tasks.apps.TasksConfig",
+    "apps.reports.apps.ReportsConfig",
+
 ]
 
 MIDDLEWARE = [

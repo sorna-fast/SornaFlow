@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Tasks, Reports
+from .models import Tasks
+from apps.reports.models import Reports
 from django.contrib import messages  
 from django.db.models import Q
 from django_jalali.db import models as jmodels
-
 @login_required
 def employee_dashboard(request):
     current_employee = request.user
@@ -32,7 +32,7 @@ def employee_dashboard(request):
             # ۴. پیام خطا در صورت عدم انتخاب وضعیت
             messages.error(request, 'خطا: لطفاً وضعیت وظیفه را انتخاب کنید.')
         
-        return redirect('tasks_and_reports_app:employee_dashboard')
+        return redirect('tasks_app:employee_dashboard')
 
     assigned_tasks = Tasks.objects.filter(
         Q(employees=current_employee) &
@@ -43,4 +43,4 @@ def employee_dashboard(request):
     context = {
         'tasks': assigned_tasks,
     }
-    return render(request, 'tasks_and_reports/employee_panel.html', context)
+    return render(request, 'tasks_app/employee_panel.html', context)

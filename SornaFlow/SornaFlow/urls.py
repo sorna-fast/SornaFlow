@@ -21,5 +21,5 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/",include("apps.accounts.urls",namespace="accounts_app")),
-    path("",include("apps.tasks_and_reports.urls",namespace="tasks_and_reports_app")),
+    path("",include("apps.tasks.urls",namespace="tasks_app")),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

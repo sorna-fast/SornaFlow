@@ -1,5 +1,6 @@
 asgiref==3.11.0
 Django==6.0
+django-environ==0.12.0
 django-jalali==7.4.0
 django-jalali-date==2.0.0
 jalali_core==1.0.0

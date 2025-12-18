@@ -17,7 +17,7 @@ class LoginUserView(View):
     def dispatch(self, request, *args, **kwargs):
         # Redirect authenticated users away from login page
         if request.user.is_authenticated:
-            return redirect("tasks_and_reports_app:employee_dashboard")
+            return redirect("tasks_app:employee_dashboard")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -45,7 +45,7 @@ class LoginUserView(View):
                     next_url = request.GET.get('next')  # Handle redirect after login
                     if next_url is not None:
                         return redirect(next_url)
-                    return redirect("tasks_and_reports_app:employee_dashboard")
+                    return redirect("tasks_app:employee_dashboard")
 
                 else:
                     messages.error(

@@ -1,9 +1,8 @@
 from django.contrib import admin
-from django.utils.html import format_html
 from django.urls import reverse
 from .models import Tasks
 from apps.reports.admin import ReportsReadOnlyInline
-
+from django.utils.safestring import mark_safe
 
 @admin.register(Tasks)  # Cleaner way to register the admin class
 class TasksAdmin(admin.ModelAdmin):
@@ -28,22 +27,20 @@ class TasksAdmin(admin.ModelAdmin):
             return obj.description[:50] + '...' if len(obj.description) > 50 else obj.description
         return "بدون توضیحات"
     truncated_description.short_description = 'توضیحات مختصر'
-
+    
     def display_employees(self, obj):
-        """
-        Display related employees as clickable admin links.
-        """
         employees = obj.employees.all()
         if not employees:
             return "بدون کارمند"
 
         links = []
         for emp in employees:
-            url = reverse('admin:accounts_employeeuser_change', args=[emp.pk])  # Admin edit link
+            url = reverse('admin:accounts_employeeuser_change', args=[emp.pk])
             links.append(f'<a href="{url}" target="_blank">{emp.name} {emp.family}</a>')
 
-        html = "<br>".join(links)
-        return format_html(html) if html else "-"
-    display_employees.short_description = 'کارمندان مرتبط'
+        return mark_safe("<br>".join(links))
 
-# No need for admin.site.register because @admin.register is used
+    display_employees.short_description = "کارمندان مرتبط"
+
+
+

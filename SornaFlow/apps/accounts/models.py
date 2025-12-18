@@ -150,4 +150,5 @@ class EmployeeUser(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "کارمند"
         verbose_name_plural = "کارمندان"  # Admin display names
+        ordering = ('national_code',) 
 #___________________________________________________________________________________

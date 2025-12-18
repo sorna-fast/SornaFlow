@@ -33,7 +33,6 @@ SornaFlow/
 │   ├── tasks/                    # Task management
 │   ├── reports/                  # Report management
 │   └── core/                     # Shared utilities (file upload handler)
-(optional)
 ├── media/                        # Uploaded files
 ├── static/
 │   ├── css/style.css
@@ -44,10 +43,14 @@ SornaFlow/
 │   └── tasks_app/employee_dashboard.html
 ├── .env.example                  # Environment variables template
 ├── .gitignore
+├── .dockerignore                 # Docker ignore rules
+├── Dockerfile                    # Docker image definition
+├── docker-compose.yml            # Multi-container setup (web + MySQL)
 ├── manage.py
 ├── requirements.txt
 ├── README.md
 └── LICENSE
+
 ```
 
 ---
@@ -243,21 +246,25 @@ SornaFlow/
 │   ├── companies/                # اطلاعات شرکت‌ها
 │   ├── tasks/                    # مدیریت وظایف
 │   ├── reports/                  # مدیریت گزارشات
-│   └── core/                     # ابزارهای مشترک (مدیریت آپلود فایل)
+│   └── core/                     # ابزارهای مشترک (آپلود فایل)
 ├── media/                        # فایل‌های آپلود شده
 ├── static/
 │   ├── css/style.css
 │   └── js/myscript.js
 ├── templates/
 │   ├── main_template.html
-│   ├── accounts/Login.html
+│   ├── accounts_app/Login.html
 │   └── tasks_app/employee_dashboard.html
-├── .env.example
+├── .env.example                  # قالب متغیرهای محیطی
 ├── .gitignore
+├── .dockerignore                 # فایل‌های نادیده‌گرفته‌شده در Docker
+├── Dockerfile                    # تعریف ایمیج Django
+├── docker-compose.yml            # اجرای چندکانتینری (Django + MySQL)
 ├── manage.py
 ├── requirements.txt
 ├── README.md
 └── LICENSE
+
 ```
 
 ---

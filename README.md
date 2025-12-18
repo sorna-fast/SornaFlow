@@ -134,6 +134,29 @@ python manage.py runserver
 
 ---
 
+## 🐳 **Docker Setup (Optional)**
+
+To run SornaFlow using Docker:
+
+### 1. Build and start containers
+
+```bash
+docker-compose up --build
+```
+
+### 2. Create a superuser inside the web container
+
+```bash
+docker-compose exec web python manage.py createsuperuser
+```
+
+### 3. Access the app
+
+- Admin Panel: [http://localhost:8000/admin/](http://localhost:8000/admin/)  
+- Employee Login: [http://localhost:8000/users/login/](http://localhost:8000/users/login/)
+
+---
+
 ## 🔐 **Authentication Flow**
 
 - Employees log in via `/users/login/`  
@@ -321,6 +344,28 @@ python manage.py runserver
 
 ---
 
+## 🐳 **راه‌اندازی با Docker (اختیاری)**
+
+برای اجرای SornaFlow با Docker:
+
+### ۱. ساخت و اجرای کانتینرها
+
+```bash
+docker-compose up --build
+```
+
+### ۲. ساخت سوپر یوزر داخل کانتینر وب
+
+```bash
+docker-compose exec web python manage.py createsuperuser
+```
+
+### ۳. دسترسی به سامانه
+
+- پنل ادمین: [http://localhost:8000/admin/](http://localhost:8000/admin/)  
+- ورود کارمند: [http://localhost:8000/users/login/](http://localhost:8000/users/login/)
+
+---
 ## 🔐 **احراز هویت**
 
 - ورود کارمندان: `/users/login/`  
@@ -373,3 +418,6 @@ python manage.py runserver
 این پروژه تحت مجوز موجود در فایل **[LICENSE](./LICENSE)** منتشر شده است.
 
 ---
+
+
+

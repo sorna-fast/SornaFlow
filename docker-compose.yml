@@ -5,10 +5,10 @@ services:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: sorna_db
-      MYSQL_USER: sorna_user
-      MYSQL_PASSWORD: sorna_pass
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${DB_NAME:-sorna_db}
+      MYSQL_USER: ${DB_USER:-sorna_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-sorna_pass}
     ports:
       - "3307:3307"
     volumes:
@@ -29,17 +29,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DB_HOST: db
-      DB_NAME: sorna_db
-      DB_USER: sorna_user
-      DB_PASSWORD: sorna_pass
-      DEBUG: "True"
-    command: >
-      bash -c "
-        sleep 3 &&  
-        python manage.py migrate --noinput &&
-        python manage.py runserver 0.0.0.0:8000
-      "
+      DB_HOST: ${DB_HOST:-db}
+      DB_NAME: ${DB_NAME:-sorna_db}
+      DB_USER: ${DB_USER:-sorna_user}
+      DB_PASSWORD: ${DB_PASSWORD:-sorna_pass}
+      DEBUG: ${DEBUG:-True}
     volumes:
       - ./media:/app/SornaFlow/media  
 

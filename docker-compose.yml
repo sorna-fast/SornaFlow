@@ -10,7 +10,7 @@ services:
       MYSQL_USER: sorna_user
       MYSQL_PASSWORD: sorna_pass
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -18,33 +18,30 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 3s
-      retries: 10
+      retries: 5
 
   web:
     build: .
+    restart: always
     depends_on:
       db:
-        condition: service_healthy
-    command: >
-      bash -c "
-        /wait-for-db.sh db &&
-        echo 'Running migrations...' &&
-        python manage.py migrate --noinput &&
-        echo 'Starting Django server...' &&
-        python manage.py runserver 0.0.0.0:8000
-      "
+        condition: service_healthy  
     ports:
       - "8000:8000"
     environment:
+      DB_HOST: db
       DB_NAME: sorna_db
       DB_USER: sorna_user
       DB_PASSWORD: sorna_pass
-      DB_HOST: db
-      DB_PORT: 3306
-      DEBUG: True
-      SECRET_KEY: django-insecure-change-this-in-production!
+      DEBUG: "True"
+    command: >
+      bash -c "
+        sleep 3 &&  
+        python manage.py migrate --noinput &&
+        python manage.py runserver 0.0.0.0:8000
+      "
     volumes:
-      - ./SornaFlow/media:/app/SornaFlow/media
+      - ./media:/app/SornaFlow/media  
 
 volumes:
   mysql_data:

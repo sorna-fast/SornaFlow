@@ -1,27 +1,26 @@
-FROM python:3.12-bullseye
+FROM python:3.12-slim-bullseye
 
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    gcc \
-    libmariadb-dev \
-    mariadb-client \
+    default-libmysqlclient-dev \
+    pkg-config \
     libjpeg-dev \
     zlib1g-dev \
-    pkg-config \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-COPY wait-for-db.sh /wait-for-db.sh
-RUN chmod +x /wait-for-db.sh
-
-WORKDIR /app/SornaFlow
 
 RUN mkdir -p /app/SornaFlow/media
+
+WORKDIR /app/SornaFlow
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
